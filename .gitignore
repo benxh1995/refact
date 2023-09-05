@@ -161,3 +161,7 @@ dmypy.json
 *.code-workspace
 
 workdir
+code_contrast/.DS_Store
+known_models_db/.DS_Store
+.gitignore
+.DS_Store

@@ -12,6 +12,7 @@ from refact_scratchpads_no_gpu.stream_results import completions_wait_batch
 
 from self_hosting_machinery.inference import InferenceLegacy
 from self_hosting_machinery.inference import InferenceHF
+from self_hosting_machinery.inference import InferenceCT
 
 
 quit_flag = False
@@ -37,6 +38,10 @@ def worker_loop(model_name: str, cpu: bool, load_lora: str, compile: bool):
             model_dict=model_dict,
             force_cpu=cpu,
             load_lora=load_lora)
+    elif model_dict["backend"] == "ggml" or model_dict["backend"] == "ctransformers" or model_dict["backend"] == "gguf":
+        inference_model = InferenceCT(
+            model_name=model_name,
+            model_dict=model_dict)
     else:
         inference_model = InferenceHF(
             model_name=model_name,
